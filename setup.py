@@ -2,14 +2,14 @@ from distutils.core import setup
 
 
 setup(
-    name = "django-userswitch",
-    version = "0.2.3",
+    name = "django-userswitch-fork",
+    version = "0.2.4",
     packages = ['userswitch',],
     license = "New BSD License",
     author = "iKraft Software (P) LTD. (see AUTHORS.rst)",
     author_email = "hello@ikraftsoft.com",
-    maintainer = "Owais Lone",
-    maintainer_email = "owais.lone@ikraftsoft.com",
+    maintainer = "Sumit Chachra",
+    maintainer_email = "sumit@tivix.com",
     description = "A quick 'n' dirty Django app for switching between different users while testing",
     long_description=open('README.rst').read(),
     url = "https://github.com/ikraftsoft/django-userswitch",
