@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name = "django-userswitch",
-    version = "0.2.2",
+    version = "0.2.3",
     packages = ['userswitch',],
     license = "New BSD License",
     author = "iKraft Software (P) LTD. (see AUTHORS.rst)",

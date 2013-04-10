@@ -13,13 +13,13 @@ A quick 'n' dirty django app for switching between different users while testing
 Requirements
 ------------
 
-Django 1.2 
+Django 1.2
 
 ------------
 Installation
 ------------
 
-To install the latest version:: 
+To install the latest version::
 
     pip install git+git://github.com/ikraftsoft/django-userswitch#egg=django-userswitch
 
@@ -55,14 +55,15 @@ Optionally you can add ``USERSWITCH_OPTIONS`` dict to the settings.py::
         'auth_backend': '',    # Custom auth backend if any. Default = 'django.contrib.auth.backends.ModelBackend'
         'replace_text': '',    # Text to replace with the widget, default add to end "body" tag.
         'users': (),           # List of usernames(as strings) to be shown in the switcher widget. If its empty, all users are loaded.
-        'force_on': False,     # Turns on USERSWITCH even if DEBUG = False
+        'force_on': False,     # Turns on USERSWITCH even if DEBUG = False,
+        'onchange_redirect_url': '/'    # The url to redirect the user to onchange of user selection.
     }
 
 
-Note: default value of ``css_inline`` option provides some basic absolute 
+Note: default value of ``css_inline`` option provides some basic absolute
 positioning. To change those either specify ``css_inline`` option
 manually or override ``position``, ``top``, ``right`` in the class
 specified in ``css_class`` with ``!important``.
-    
+
 
 That's All!

@@ -26,13 +26,14 @@ class UserSwitchMiddleware(object):
             'auth_backend': settings.USERSWITCH_OPTIONS.get('auth_backend', 'django.contrib.auth.backends.ModelBackend'),
             'replace_text': settings.USERSWITCH_OPTIONS.get('replace_text', ''),
             'users': settings.USERSWITCH_OPTIONS.get('users', tuple()),
+            'onchange_redirect_url': settings.USERSWITCH_OPTIONS.get('onchange_redirect_url', '/')
         }
 
-        
+
         # HTML for the widget
         self.USERSWITCH_WIDGET = """
         <div class="%(css_class)s" style="%(css_inline)s">
-        <select onChange="var username = options[selectedIndex].value; document.location.href = '/?userswitch_username='+username">
+        <select onChange="var username = options[selectedIndex].value; document.location.href = '%s(onchange_redirect_url)?userswitch_username='+username">
             <options>
         </select>
         </div>
@@ -71,7 +72,7 @@ class UserSwitchMiddleware(object):
         Appends user switcher widget just before the </body> tag in the response html
         """
         if response.status_code == 200 and response['Content-Type'].split(';')[0].strip() in self.USERSWITCH_OPTIONS['content_types']:
-                
+
                 options_html = '<option value="0">Switch User</option>'
 
                 if self.USERSWITCH_OPTIONS['users']:
