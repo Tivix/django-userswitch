@@ -63,11 +63,11 @@ class UserSwitchMiddleware(object):
             auth.logout(request)
             auth.login(request,user)
 
-            # Redirect to the refering URL, if there is one
+            # Redirect to the referring URL, if there is one.
             if request.META.has_key('HTTP_REFERER'):
                 return HttpResponseRedirect(request.META['HTTP_REFERER'])
             else:
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect(self.USERSWITCH_OPTIONS['onchange_redirect_url'])
 
 
 
