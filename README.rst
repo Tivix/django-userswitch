@@ -19,7 +19,7 @@ Requirements
 Installation
 ------------
 
-To install the latest version:: 
+To install the latest version::
 
     pip install git+git://github.com/ikraftsoft/django-userswitch#egg=django-userswitch
 
@@ -49,17 +49,18 @@ Add ``userswitch`` middleware to the ``MIDDLEWARE_CLASSES`` in settings.py after
 Optionally you can add ``USERSWITCH_OPTIONS`` dict to the settings.py::
 
     USERSWITCH_OPTIONS = {
-        'css_class': '',       # CSS class to be added to the switcher widget. Default='userswitch'.
-        'css_inline': '',      # Inline css for the switcher widget, if any
-        'content_types': (),   # a tuple of content-type for which to render switcher widget. Default = ('text/html', 'application/xhtml+xml')
-        'auth_backend': '',    # Custom auth backend if any. Default = 'django.contrib.auth.backends.ModelBackend'
-        'replace_text': '',    # Text to replace with the widget, default add to end "body" tag.
-        'users': (),           # List of usernames(as strings) to be shown in the switcher widget. If its empty, all users are loaded.
-        'force_on': False,     # Turns on USERSWITCH even if DEBUG = False
+        'css_class': '',               # CSS class to be added to the switcher widget. Default='userswitch'.
+        'css_inline': '',              # Inline css for the switcher widget, if any
+        'content_types': (),           # a tuple of content-type for which to render switcher widget. Default = ('text/html', 'application/xhtml+xml')
+        'auth_backend': '',            # Custom auth backend if any. Default = 'django.contrib.auth.backends.ModelBackend'
+        'replace_text': '',            # Text to replace with the widget, default add to end "body" tag.
+        'users': (),                   # List of usernames(as strings) to be shown in the switcher widget. If its empty, all users are loaded.
+        'force_on': False,             # Turns on USERSWITCH even if DEBUG = False,
+        'onchange_redirect_url': '/',  # The url to redirect the user to onchange of user selection.
     }
 
 
-Note: default value of ``css_inline`` option provides some basic absolute 
+Note: default value of ``css_inline`` option provides some basic absolute
 positioning. To change those either specify ``css_inline`` option
 manually or override ``position``, ``top``, ``right``, ``z-index`` in the class
 specified in ``css_class`` with ``!important``.

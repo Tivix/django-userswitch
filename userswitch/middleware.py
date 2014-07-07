@@ -31,12 +31,13 @@ class UserSwitchMiddleware(object):
             'auth_backend': settings.USERSWITCH_OPTIONS.get('auth_backend', 'django.contrib.auth.backends.ModelBackend'),
             'replace_text': settings.USERSWITCH_OPTIONS.get('replace_text', ''),
             'users': settings.USERSWITCH_OPTIONS.get('users', tuple()),
+            'onchange_redirect_url': settings.USERSWITCH_OPTIONS.get('onchange_redirect_url', '/'),
         }
 
         # HTML for the widget
         self.USERSWITCH_WIDGET = """
         <div class="%(css_class)s" style="%(css_inline)s">
-        <select onChange="var username = options[selectedIndex].value; document.location.href = '/?userswitch_username='+username">
+        <select onChange="var username = options[selectedIndex].value; document.location.href = '%(onchange_redirect_url)s?userswitch_username='+username">
             <options>
         </select>
         </div>
