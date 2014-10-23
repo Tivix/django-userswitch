@@ -7,9 +7,11 @@ from django import VERSION
 
 if VERSION[0] < 1 or (VERSION[0] == 1 and VERSION[1] < 5):
     from django.contrib.auth.models import User
+    USERNAME_FIELD = 'username'
 else:
     from django.contrib.auth import get_user_model
     User = get_user_model()
+    USERNAME_FIELD = User.USERNAME_FIELD
 
 
 class UserSwitchMiddleware(object):
@@ -31,7 +33,8 @@ class UserSwitchMiddleware(object):
             'auth_backend': settings.USERSWITCH_OPTIONS.get('auth_backend', 'django.contrib.auth.backends.ModelBackend'),
             'replace_text': settings.USERSWITCH_OPTIONS.get('replace_text', ''),
             'users': settings.USERSWITCH_OPTIONS.get('users', tuple()),
-            'onchange_redirect_url': settings.USERSWITCH_OPTIONS.get('onchange_redirect_url', '/')
+            'onchange_redirect_url': settings.USERSWITCH_OPTIONS.get('onchange_redirect_url', '/'),
+            'order_by': settings.USERSWITCH_OPTIONS.get('order_by', USERNAME_FIELD) or USERNAME_FIELD
         }
 
         # HTML for the widget
@@ -54,11 +57,9 @@ class UserSwitchMiddleware(object):
             # It is not a bug, it is intentional. If the user does not exist in the DB,
             # it is a good idea to show that than to have the developer wondering why
             # the user is not switching.
-            try:
-                # First, try with customizable User model in Django 1.5 an up.
-                user = User.objects.get(**{User.USERNAME_FIELD: username})
-            except AttributeError:
-                user = User.objects.get(username=username)
+
+            # First, try with customizable User model in Django 1.5 an up.
+            user = User.objects.get(**{USERNAME_FIELD: username})
 
             # user.backend is needed for the the auth.login to work properly
             user.backend = self.USERSWITCH_OPTIONS['auth_backend']
@@ -83,7 +84,7 @@ class UserSwitchMiddleware(object):
                 if self.USERSWITCH_OPTIONS['users']:
                     users = self.USERSWITCH_OPTIONS['users']
                 else:
-                    users = User.objects.all()
+                    users = User.objects.all().order_by(self.USERSWITCH_OPTIONS['order_by'])
 
                 for user in users:
                     options_html += '<option value="%s">%s</option>' % (user, user)

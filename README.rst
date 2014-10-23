@@ -56,7 +56,8 @@ Optionally you can add ``USERSWITCH_OPTIONS`` dict to the settings.py::
         'replace_text': '',    # Text to replace with the widget, default add to end "body" tag.
         'users': (),           # List of usernames(as strings) to be shown in the switcher widget. If its empty, all users are loaded.
         'force_on': False,     # Turns on USERSWITCH even if DEBUG = False,
-        'onchange_redirect_url': '/'    # The url to redirect the user to onchange of user selection.
+        'onchange_redirect_url': '/',    # The url to redirect the user to onchange of user selection.
+        'order_by': '',    # Field name to use for ordering user queryset (in case it was used). If empty or not defined, 'username' is used for dj<1.5 or User.USERNAME_FIELD for all above.
     }
 
 
